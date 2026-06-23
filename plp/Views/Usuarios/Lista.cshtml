@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Juegos</title>
+    <!-- Incluye el CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <!-- Incluye el CSS de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="~/css/stylestablas.css"> <!-- Asegúrate de que esta ruta sea correcta -->
+    <link rel="stylesheet" href="~/css/styles.css"> <!-- Asegúrate de que esta ruta sea correcta -->
+
+</head>
+
+<body>
+
+    @model List<plp.Shared.Models.Usuarios>
+
+    <div class="container-fluid main-container">
+        <!-- DataTables Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 juegos-header">USUARIOS</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <h1>@ViewData["Title"]</h1>
+                    <p>
+                        <a asp-action="Nuevo" class="btn btn-success btn-registro">
+                            <i class="fas fa-plus-circle"></i> Nuevo Registro
+                        </a>
+                    </p>
+                    <table class="table table-bordered" id="usuariosTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Correo</th>
+                                <th>Rol</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Rol.NombreRol)</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Usuarios" asp-action="Editar" asp-route-id="@item.IdUsuario" class="btn btn-warning">
+                                           <i class="fas fa-edit action-icon"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-controller="Usuarios" asp-action="Eliminar" asp-route-id="@item.IdUsuario" class="btn btn-danger" onclick="return confirmar()">
+                                           <i class="fas fa-trash action-icon"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asegúrate de tener referenciado jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+    <!-- Incluye el JS de DataTables -->
+    <script type="text/javascript" src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+
+    <script>
+            $(document).ready(function () {
+                // Inicializa tu DataTable
+                let table = $('#usuariosTable').DataTable({
+                    "retrieve": true,
+                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Todos"]],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "No se encontraron registros",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "search": "Buscar:"
+                    }
+                });
+            });
+
+            function confirmar() {
+                return confirm("¿Está seguro que desea eliminar el empleado?");
+            }
+    </script>
+</body>
+</html>

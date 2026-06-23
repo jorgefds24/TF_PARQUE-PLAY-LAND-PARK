@@ -1,0 +1,75 @@
+﻿@model IEnumerable<plp.Shared.Models.Tickets>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Tickets - Play Land Park</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+    <!-- Font Awesome icons (free version) -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link rel="stylesheet" media="all" href="~/css/stylesclases.css" />
+    <link rel="stylesheet" media="all" href="~/css/styleslogin.css" />
+    <link rel="stylesheet" media="all" href="~/css/stylestickets.css" />
+</head>
+<body id="page-top">
+    <div class="top-image-container">
+        <img class="background" src="/imagenes/tickets.jpg" />
+    </div>
+    <div class="main-content container mt-5">
+        <div class="row">
+            @foreach (var ticket in Model)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="ticket p-3 shadow-sm border rounded">
+                        <div class="row">
+                            <div class="ticket__main col-md-8">
+                                <div class="header h4">@ticket.Nombre</div>
+                                <div class="info mt-3">
+                                    <div class="info__item font-weight-bold">Precio:</div>
+                                    <div class="info__detail">@ticket.Precio.ToString("C")</div>
+                                    <!-- Botón Comprar -->
+                                    <div class="mt-5">
+                                        <a href="#" class="btn btn-primary">Comprar</a>
+                                    </div>
+                                </div>
+                                <!-- Más campos según sea necesario -->
+                                <div class="fineprint mt-4 text-muted">
+                                    <p>Este ticket es No reembolsable • Play Land Park</p>
+                                </div>
+                            </div>
+                            <div class="ticket__side col-md-4 text-center d-flex flex-column justify-content-center">
+                                <div class="logo mb-3">
+                                    <p class="h5 mb-0">Play Land Park</p>
+                                </div>
+                                <div class="info mt-2">
+                                    <div class="info__item font-weight-bold">Nombre:</div>
+                                    <div class="info__detail">@ticket.Nombre</div>
+                                </div>
+                                <div class="info mt-2">
+                                    <div class="info__item font-weight-bold">Precio:</div>
+                                    <div class="info__detail">@ticket.Precio.ToString("C")</div>
+                                </div>
+                                <!-- Más campos según sea necesario -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

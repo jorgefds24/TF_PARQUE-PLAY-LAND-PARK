@@ -1,0 +1,48 @@
+.card {
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+.card-title {
+    color: #FFC900;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    font-style: italic;
+}
+
+.btn-primary {
+    background-color: #FFC900;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.card-img-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container-juegos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}

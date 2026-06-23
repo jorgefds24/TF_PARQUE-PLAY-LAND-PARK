@@ -1,0 +1,9 @@
+Sí, es posible. Entity Framework Core utiliza un sistema de migraciones para gestionar los cambios en el esquema de la base de datos. Aquí te explico cómo funciona:
+
+Agregar una nueva clase (tabla): Si quieres agregar una nueva clase a tu base de datos, simplemente debes agregar la clase en tu código y luego agregar un DbSet para esa clase en tu contexto de base de datos. Luego, puedes ejecutar Add-Migration para crear una nueva migración con los cambios. Cuando ejecutes Update-Database, se creará una nueva tabla en la base de datos que corresponde a tu nueva clase.
+Modificar un atributo (columna): Si necesitas modificar un atributo, puedes hacer los cambios necesarios en tu clase y luego ejecutar Add-Migration para crear una nueva migración que incluya estos cambios. Al ejecutar Update-Database, se aplicarán los cambios a la columna correspondiente en la base de datos.
+Recuerda que cada vez que haces un cambio en tu modelo que requiere un cambio en la base de datos, debes crear una nueva migración con Add-Migration y luego aplicar esa migración con Update-Database.
+
+Es importante tener en cuenta que algunos cambios pueden ser destructivos, dependiendo de la base de datos que estés utilizando. Por ejemplo, si estás reduciendo el tamaño de una columna de cadena de texto, puedes perder datos si hay valores que exceden el nuevo tamaño. En estos casos, debes asegurarte de manejar estos cambios de manera adecuada para evitar la pérdida de datos.
+
+Espero que esto responda a tu pregunta. Si tienes más dudas, no dudes en preguntar. ¡Estoy aquí para ayudar! 😊

@@ -1,0 +1,140 @@
+.top-image-container {
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
+}
+
+    .top-image-container img.background {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(90%);
+    }
+
+@media (max-width: 1500px) {
+    .top-image-container {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 1200px) {
+    .top-image-container {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 992px) {
+    .top-image-container {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-image-container {
+        height: 50vh;
+    }
+}
+
+.circle-container {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translateX(-50%);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.page-section {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.section-heading {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.section-subheading {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #6c757d;
+}
+
+.fa-stack {
+    margin-bottom: 20px;
+}
+
+.my-3 {
+    margin: 1em 0;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-primary {
+    color: #FFC900 !important;
+}
+
+.container.mt-2 {
+    margin-top: -20px;
+}
+
+@media (max-width: 1200px) {
+    .container.mt-2 {
+        margin-top: -10px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container.mt-2 {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container.mt-2 {
+        margin-top: 10px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-img-top {
+        height: auto;
+    }
+}
+
+
+/* Para la imagen de promo juegos eventos */
+
+
+
+.card {
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+.card-title {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.card-subtitle {
+    font-style: italic;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }

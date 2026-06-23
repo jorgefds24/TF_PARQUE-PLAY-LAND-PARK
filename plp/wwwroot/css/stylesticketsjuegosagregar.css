@@ -1,0 +1,52 @@
+﻿.game-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 2rem;
+}
+
+.game-card {
+    background-color: #F1F0F6;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+    .game-card:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to bottom right, #32CD32, #228B22); /* Cambiado a un gradiente verde */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .game-card:hover:before {
+        opacity: 0.3;
+    }
+
+    .game-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background-color: #f0f8ff; /* Este es un color de fondo azul claro que se ve bien */
+    }
+
+    .game-card .form-check-label {
+        font-weight: bold;
+        color: #333;
+        position: relative;
+        z-index: 1;
+    }
+
+    .game-card .form-check-input:hover + .form-check-label {
+        color: #4CAF50; /* Este es un tono de verde que se ve muy bien */
+    }
+
+    .game-card .form-check-input {
+        transform: scale(1.2);
+    }

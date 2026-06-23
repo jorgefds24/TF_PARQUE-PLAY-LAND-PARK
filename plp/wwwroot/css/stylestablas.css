@@ -1,0 +1,150 @@
+﻿.action-icon {
+    color: white;
+}
+
+.table th, .table td {
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table .text-center {
+    text-align: center;
+}
+
+.btn-registro {
+    padding: 10px;
+}
+
+    .btn-registro i {
+        margin-right: 10px;
+        margin-right: 50px;
+    }
+
+.main-container {
+    margin-top: 30px; /* Ajusta este valor según tus necesidades */
+}
+
+/* HEADER DE CADA VISTA DEL ADMIN */
+.juegos-header, .promociones-header {
+    text-align: center; /* Centra el texto */
+    color: #706f6f !important; /* Cambia el color del texto a negro */
+}
+
+/* AJUSTES PARA EL MODAL DE IMAGEN */
+.modal-custom {
+    background-color: #f8f9fc; /* Color de fondo del modal */
+    border-radius: 10px; /* Bordes redondeados del modal */
+}
+
+.modal-title-custom {
+    color: #706f6f; /* Color del título del modal */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.modal-label {
+    color: #706f6f; /* Color de las etiquetas del modal */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.modal-image {
+    width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+    max-height: 400px; /* Limita la altura máxima de la imagen */
+    object-fit: contain; /* Asegura que la imagen se ajuste al contenedor sin distorsionarse */
+    border-radius: 10px; /* Bordes redondeados de la imagen */
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1); /* Sombra de la imagen */
+}
+
+
+.modal-image-eliminar {
+    width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+    max-height: 400px; /* Limita la altura máxima de la imagen */
+    object-fit: contain; /* Asegura que la imagen se ajuste al contenedor sin distorsionarse */
+    border-radius: 10px; /* Bordes redondeados de la imagen */
+    box-shadow: ...; /* Sombra de la imagen */
+}
+
+
+
+/* Editar el texto que esta arriba de editar, borrar */
+/*.my-custom-container {
+    margin-top: 20px;
+}
+
+.my-custom-title {
+    color: #706f6f;
+    font-weight: bold;
+}*/
+
+/* Editar texto que sea blanco de volver en vista editar */
+/*.btn-warning, .btn-warning .fas, .btn-warning:hover, .btn-warning:hover .fas, .btn-warning:hover span {
+    color: white !important;
+}*/
+
+
+/* Editar el texto que esta arriba de editar, borrar, de las cabeceras de las vistas */
+.custom-header-container {
+    width: 100%;
+    background-color: #f8f9fa; /* Color similar al de tu ejemplo */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-top: 20px; /* Añadido para crear espacio en la parte superior */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 50px;
+}
+
+/*.custom-title {
+    font-size: 22px;
+    margin-top: 0px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #706f6f !important;
+}
+*/
+
+
+
+/* Dimensiones de la tabla */
+.container, .container-fluid, .container-xxl, .container-xl, .container-lg, .container-md, .container-sm {
+    --bs-gutter-x: 1.2rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x)* 0.5);
+    padding-left: calc(var(--bs-gutter-x)* 0.5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Letra negrita para todas las cabeceras de tablas */
+.juegos-header, .promociones-header, .custom-title {
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+
+
+
+/* Alinear etiquetas y campos en una sola fila */
+.form-group.col-md-6 {
+    display: inline-block;
+    width: calc(50% - 15px); /* Ajusta el ancho según tu diseño */
+    margin-right: 30px; /* Espaciado entre los campos */
+}
+
+    .form-group.col-md-6:last-child {
+        margin-right: 0; /* Elimina el margen derecho del último campo */
+    }
+
+/* Estilo para etiquetas fuertes */
+.form-label strong {
+    display: block; /* Asegura que el texto esté en una nueva línea */
+    margin-bottom: 0px; /* Espacio entre la etiqueta y el campo */
+}
+
+
+

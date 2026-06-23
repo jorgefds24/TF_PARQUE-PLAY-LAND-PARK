@@ -1,0 +1,56 @@
+﻿@model IEnumerable<plp.Shared.Models.Promociones>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Promociones - Play Land Park</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+    <!-- Font Awesome icons (free version) -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+@*     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" /> *@
+@*     <link href="~/css/styles.css" rel="stylesheet" /> *@
+    <link href="~/css/styleslogin.css" rel="stylesheet" />
+    <link rel="stylesheet" media="all" href="~/css/stylesclases.css" />
+    <link rel="stylesheet" media="all" href="~/css/styleslogin.css" />
+    <link rel="stylesheet" media="all" href="~/css/stylespromociones.css" />
+</head>
+<body id="page-top">
+
+    <div class="top-image-container">
+        <img class="background" src="/imagenes/promociones.jpg" />
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center text-primary">¡Descubre nuestras increíbles promociones!</h2>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="card mb-4 shadow-sm mt-5">
+                        <img src="/contenidos/promociones/@item.Imagen" class="card-img-top" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">@Html.DisplayFor(modelItem => item.Titulo)</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Del @Html.DisplayFor(modelItem => item.FechaInicio) al @Html.DisplayFor(modelItem => item.FechaFin)</h6>
+                            <p class="card-text">¡Disfruta de un descuento del @Html.DisplayFor(modelItem => item.Descuento)%!</p>
+                            <a href="#" class="btn btn-primary mt-auto" style="width: 100%;">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

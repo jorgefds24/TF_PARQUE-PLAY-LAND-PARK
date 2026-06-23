@@ -1,0 +1,69 @@
+﻿/* Estilo para las cards de tickets juegos */
+.card {
+
+    border-radius: 8px;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: translateY(-5px);
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.btn {
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004d99;
+}
+
+
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .card-body .btn {
+        margin-top: 1rem;
+    }
+
+/*.card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}*/
+
+.btn-primary {
+    background-color: #F4F4F4; /* Fondo gris claro */
+    border-color: #F4F4F4; /* Borde gris claro */
+    color: #333; /* Color de texto gris oscuro */
+}
+
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:focus,
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .btn-primary:not(:disabled):not(.disabled).active,
+    .show > .btn-primary.dropdown-toggle {
+        background-color: #E4E4E4; /* Fondo gris un poco más oscuro en hover, active y focus */
+        border-color: #E4E4E4; /* Borde gris un poco más oscuro en hover, active y focus */
+        color: #333; /* Color de texto gris oscuro */
+        box-shadow: none; /* Eliminar el efecto de sombra predeterminado */
+    }
+
+.btn-registro {
+    font-weight: normal;
+}
+
+
+

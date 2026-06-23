@@ -1,0 +1,137 @@
+CREATE DATABASE DBPLAYLANDPARK;
+
+USE DBPLAYLANDPARK;
+
+CREATE TABLE Clientes(
+    IdCliente INT PRIMARY KEY,
+    Nombres NVARCHAR(100),
+    Apellidos NVARCHAR(100),
+    Correo NVARCHAR(100),
+    Clave NVARCHAR(150),
+    FechaRegistro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Usuarios(
+    IdUsuario INT PRIMARY KEY,
+    NombreUsuario NVARCHAR(50),
+    Contrasena NVARCHAR(50),
+    Rol NVARCHAR(50) -- Visitante, Empleado, Administrador
+);
+
+CREATE TABLE Tickets(
+    IdTicket INT PRIMARY KEY,
+    Nombre NVARCHAR(50), -- Blanco, Celeste, Verde
+    Precio DECIMAL(5, 2)
+);
+
+
+CREATE TABLE Compras(
+    IdCompra INT PRIMARY KEY,
+    IdVisitante INT,
+    IdTicket INT,
+    FechaCompra DATETIME,
+    QRCode NVARCHAR(100), -- código QR
+    FOREIGN KEY (IdVisitante) REFERENCES Clientes(IdCliente),
+    FOREIGN KEY (IdTicket) REFERENCES Tickets(IdTicket)
+);
+
+CREATE TABLE Juegos(
+    IdJuego INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Estado NVARCHAR(50), -- Libre o en mantenimiento
+    RutaImagen NVARCHAR(100),
+    NombreImagen NVARCHAR(100)
+);
+
+
+CREATE TABLE TicketsJuegos(
+    IdTicket INT,
+    IdJuego INT,
+    PRIMARY KEY (IdTicket, IdJuego),
+    FOREIGN KEY (IdTicket) REFERENCES Tickets(IdTicket),
+    FOREIGN KEY (IdJuego) REFERENCES Juegos(IdJuego)
+);
+
+
+CREATE TABLE Empleados(
+    IdEmpleado INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Posicion NVARCHAR(50),
+    Distrito NVARCHAR(100), 
+    IdJuego INT,
+    FOREIGN KEY (IdJuego) REFERENCES Juegos(IdJuego)
+);
+
+CREATE TABLE HorariosJuegos(
+    IdJuego INT,
+    HorarioApertura TIME,
+    HorarioCierre TIME,
+    FOREIGN KEY (IdJuego) REFERENCES Juegos(IdJuego)
+);
+
+CREATE TABLE Mantenimiento(
+    IdMantenimiento INT PRIMARY KEY,
+    IdJuego INT,
+    FechaMantenimiento DATETIME,
+    Descripcion NVARCHAR(255),
+    IdEmpleado INT,
+    FOREIGN KEY (IdJuego) REFERENCES Juegos(IdJuego),
+    FOREIGN KEY (IdEmpleado) REFERENCES Empleados(IdEmpleado)
+);
+
+CREATE TABLE Compras(
+    IdCompra INT PRIMARY KEY,
+    IdVisitante INT,
+    IdTicket INT,
+    FechaCompra DATETIME,
+    QRCode NVARCHAR(100), -- código QR
+    FOREIGN KEY (IdVisitante) REFERENCES Clientes(IdCliente),
+    FOREIGN KEY (IdTicket) REFERENCES Tickets(IdTicket)
+);
+
+CREATE TABLE Ventas(
+    IdVenta INT PRIMARY KEY,
+    IdVisitante INT,
+    IdTicket INT,
+    FechaVenta DATETIME,
+    MetodoVenta NVARCHAR(50), -- desde la web o Presencial
+    IdEmpleado INT,
+    QRCode NVARCHAR(100), -- Aquí puedes almacenar el código QR
+    FOREIGN KEY (IdVisitante) REFERENCES Clientes(IdCliente),
+    FOREIGN KEY (IdTicket) REFERENCES Tickets(IdTicket),
+    FOREIGN KEY (IdEmpleado) REFERENCES Empleados(IdEmpleado)
+);
+
+CREATE TABLE Pagos(
+    IdPago INT PRIMARY KEY,
+    IdVenta INT,
+    MetodoPago NVARCHAR(50), -- Tarjeta, Yape 
+    Monto DECIMAL(5, 2),
+    FOREIGN KEY (IdVenta) REFERENCES Ventas(IdVenta)
+);
+
+
+
+CREATE TABLE Comentarios(
+    IdComentario INT PRIMARY KEY,
+    IdVisitante INT,
+    Comentario NVARCHAR(255),
+    FechaComentario DATETIME,
+    FOREIGN KEY (IdVisitante) REFERENCES Clientes(IdCliente)
+);
+
+CREATE TABLE EventosEspeciales(
+    IdEvento INT PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Descripcion NVARCHAR(255),
+    FechaInicio DATETIME,
+    FechaFin DATETIME
+);
+
+CREATE TABLE Promociones(
+    IdPromocion INT PRIMARY KEY,
+    Descripcion NVARCHAR(255),
+    FechaInicio DATETIME,
+    FechaFin DATETIME,
+    Descuento DECIMAL(5, 2)
+);

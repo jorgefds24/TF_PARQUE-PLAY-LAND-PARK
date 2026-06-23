@@ -1,0 +1,78 @@
+﻿@model plp2.ViewModels.UsuarioVM;
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="~/css/styleslogin.css" rel="stylesheet" />
+    <link rel="stylesheet" media="all" href="~/css/styleshome.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+                    <div class="card-header text-center">
+                        Registrarse
+                    </div>
+                    <div class="card-body">
+                        <form asp-controller="Acceso" asp-action="Registrarse" method="post">
+                            <div class="form-group">
+                                <input class="form-control mb-3" type="text" placeholder="Nombre Completo" required asp-for="Nombre" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control mb-3" type="text" placeholder="Apellidos" required asp-for="Apellido" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control mb-3" type="email" placeholder="Correo" required asp-for="Correo" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control mb-3" type="password" placeholder="Contraseña" required asp-for="Clave" />
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control mb-3" type="password" placeholder="Confirmar Contraseña" required asp-for="ConfirmarClave" />
+                            </div>
+                            <div class="form-group d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">Registrarse</button>
+                            </div>
+
+                            @if (ViewData["Mensaje"] != null)
+                            {
+                                <div class="alert alert-danger mt-3" role="alert">
+                                    @ViewData["Mensaje"]
+                                </div>
+                            }
+                            <div class="text-center mt-3">
+                                ¿Ya tienes una cuenta? <a asp-controller="Acceso" asp-action="Login"> Iniciar Sesión </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>

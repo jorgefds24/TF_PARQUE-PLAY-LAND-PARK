@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Incluye el CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <!-- Incluye el CSS de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="~/css/stylestablas.css"> <!-- Verifica la ruta correcta -->
+    <link rel="stylesheet" href="~/css/styles.css"> <!-- Verifica la ruta correcta -->
+    <link rel="stylesheet" href="~/css/stylesticketsjuegosagregar.css"> <!-- Verifica la ruta correcta -->
+    <!-- Incluye jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    @model plp.ViewModels.TicketJuegoViewModel
+
+    @{
+        ViewData["Title"] = "Agregar juegos a tickets";
+    }
+
+    <div class="custom-header-container">
+        <div class="custom-header text-center mb-4">
+            <h6 class="m-0 juegos-header">AGREGAR JUEGOS A TICKET</h6>
+        </div>
+    </div>
+
+    <form id="ticketJuegoForm" asp-action="Agregar" method="post">
+        <div class="form-group mt-4">
+            <label for="TicketsJuegos_IdTicket" class="control-label"><strong>Ticket:</strong></label>
+            <select id="TicketsJuegos_IdTicket" name="TicketsJuegos.IdTicket" class="form-control">
+                <option value="" class="form-control">Selecciona un ticket...</option>
+                @foreach (var ticket in Model.Tickets)
+                {
+                    <option value="@ticket.Value">@ticket.Text</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mt-4">
+            <label><strong>Selecciona los Juegos que deseas agregar:</strong></label>
+            <div class="game-list mt-4">
+                @foreach (var juego in Model.Juegos)
+                {
+                    <div class="game-card">
+                        <div class="form-check">
+                            <input type="checkbox" id="chk_@juego.Value" name="IdsJuegos" value="@juego.Value" class="form-check-input">
+                            <label for="chk_@juego.Value">@juego.Text</label>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary mx-2">
+                <i class="fas fa-save"></i> Guardar
+            </button>
+            <a href="@Url.Action("Index", "TicketsJuegos")" class="btn btn-danger mx-2">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </div>
+    </form>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('#ticketJuegoForm').on('submit', function (event) {
+                event.preventDefault(); // Prevenir el envío estándar del formulario
+
+                var ticketSeleccionado = $('#TicketsJuegos_IdTicket').val();
+                var juegosSeleccionados = $('input[name="IdsJuegos"]:checked').length;
+
+                if (ticketSeleccionado && juegosSeleccionados > 0) {
+                    $.ajax({
+                        url: '@Url.Action("Agregar", "TicketsJuegos")',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            // Lógica de éxito: puedes actualizar la página con los datos nuevos
+                            alert('Juegos agregados exitosamente');
+                            location.reload(); // Recargar la página para reflejar los cambios
+                        },
+                        error: function (xhr, status, error) {
+                            // Lógica de error
+                            alert('Ocurrió un error al agregar los juegos: ' + error);
+                        }
+                    });
+                } else {
+                    alert('Por favor, selecciona un ticket y al menos un juego.');
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

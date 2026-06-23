@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Incluye el CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <!-- Incluye el CSS de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="~/css/stylestablas.css"> <!-- Verifica la ruta correcta -->
+    <link rel="stylesheet" href="~/css/styles.css"> <!-- Asegúrate de que esta ruta sea correcta -->
+</head>
+
+
+<body>
+    <div class="container-fluid main-container">
+        <!-- DataTables Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 juegos-header">INSUMOS</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @model IEnumerable<plp.Shared.Models.Insumos>
+
+                    <h1>@ViewData["Title"]</h1>
+                    <p>
+                        <a asp-action="Agregar" class="btn btn-success btn-registro">
+                            <i class="fas fa-plus-circle"></i> Nuevo Registro
+                        </a>
+                    </p>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Tipo de insumo</th>
+                                <th>Monto</th>
+                                <th>Imagen</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.TipoInsumo)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Monto)</td>
+                                    <td class="text-center">
+                                        <img src="@Url.Content($"~/contenidos/insumos/{item.Imagen}")" style="width:100px; height:100px; cursor: pointer;" alt="Imagen del Insumo" data-bs-toggle="modal" data-bs-target="#editImageModal" onclick="openModal('@item.IdInsumo', '@Url.Content($"~/contenidos/insumos/{item.Imagen}")')" />
+                                    </td>
+                                    <td class="text-center">
+                                        <a asp-action="Editar" asp-route-id="@item.IdInsumo" class="btn btn-warning">
+                                            <i class="fas fa-edit action-icon"></i> 
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-danger" onclick="deleteItem('@item.IdInsumo', '@item.Titulo', '@item.TipoInsumo', '@item.Monto', '@item.Imagen')">
+                                            <i class="fas fa-trash action-icon"></i> 
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Modal para editar imagen -->
+        <div class="modal fade" id="editImageModal" tabindex="-1" aria-labelledby="editImageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-custom">
+                    <div class="modal-header">
+                    <h5 class="modal-title modal-title-custom" id="editImageModalLabel">Editar Imagen del Juego</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="modal-label">Imagen actual</label>
+                            <br />
+                            <img id="currentImage" src="" alt="Imagen del juego" class="modal-image mt-4" />
+                            <br />
+                        </div>
+                        <form id="changeImageForm" asp-action="CambiarImagen" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="IdInsumo" id="IdInsumo" value="" />
+                            <div class="form-group">
+                                <label class="control-label mt-4 modal-label">Subir nueva imagen </label>
+                                <input type="file" name="NuevaImagen" class="form-control" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary" onclick="submitChangeImageForm()">Guardar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+         <!-- Modal para confirmar eliminación -->
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-custom">
+                    <div class="modal-header">
+                        <h5 class="modal-title modal-title-custom" id="deleteConfirmModalLabel">Eliminar Insumo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="modal-label" style="font-size: 1.2rem; margin-bottom: 0.9rem;">¿Estás seguro de eliminar este insumo?</h3>
+                        <div>
+                            <dl class="row">
+                                <dt class="col-sm-3 modal-label">Título:</dt>
+                                <dd class="col-sm-9" id="deleteTitulo"></dd>
+                                <dt class="col-sm-3 modal-label">Tipo de insumo:</dt>
+                                <dd class="col-sm-9" id="deleteTipoInsumo"></dd>
+                                <dt class="col-sm-3 modal-label">Monto:</dt>
+                                <dd class="col-sm-9" id="deleteMonto"></dd>
+                                <dt class="col-sm-3 modal-label"></dt>
+                                <br />
+                                <img id="deleteImagen" src="" alt="Imagen del insumo" class="modal-image-eliminar" />
+                                <br />
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <form id="deleteForm" asp-action="ConfirmarBorrar" method="post">
+                            <input type="hidden" name="Id" id="deleteIdInsumo" />
+                                <div class="text-end">
+                                    <input type="submit" value="Eliminar" class="btn btn-danger" />
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Asegúrate de tener referenciado jQuery y Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <!-- Incluye el JS de DataTables -->
+        <script type="text/javascript" src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                // Inicializa tu DataTable
+                let table = $('#dataTable').DataTable({
+                    "retrieve": true,
+                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "Todos"]],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "No se encontraron registros",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "emptyTable": "No hay datos disponibles en la tabla",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        },
+                        "search": "Buscar:"
+                    }
+                });
+            });
+
+            function openModal(idInsumo, imageUrl) {
+                $('#IdInsumo').val(idInsumo);
+                $('#currentImage').attr('src', imageUrl);
+                $('#currentImageName').text(imageUrl.split('/').pop());
+                $('#editImageModal').modal('show'); // Muestra el modal de edición de imagen
+            }
+
+            function submitChangeImageForm() {
+                $('#changeImageForm').submit(); // Envía el formulario de cambio de imagen
+            }
+
+            function deleteItem(id, titulo, tipoInsumo, monto, imagen) {
+                $('#deleteIdInsumo').val(id);
+                $('#deleteTitulo').text(titulo);
+                $('#deleteTipoInsumo').text(tipoInsumo);
+                $('#deleteMonto').text(monto);
+
+                // Actualiza la imagen
+                var imgPath = '@Url.Content("~/contenidos/insumos/")' + imagen;
+                $('#deleteImagen').attr('src', imgPath);
+
+                $('#deleteConfirmModal').modal('show'); // Muestra el modal de confirmación de eliminación
+            }
+        </script>
+    </body>
+</html>

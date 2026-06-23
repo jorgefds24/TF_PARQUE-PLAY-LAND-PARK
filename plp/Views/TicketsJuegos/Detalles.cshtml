@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Incluye el CSS de DataTables -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <!-- Incluye el CSS de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="~/css/stylestablas.css"> <!-- Verifica la ruta correcta -->
+    <link rel="stylesheet" href="~/css/styles.css"> <!-- Verifica la ruta correcta -->
+</head>
+
+<body>
+    @model List<plp.Shared.Models.Juegos>
+
+    @{
+        ViewData["Title"] = "Detalles del Ticket";
+    }
+
+    <div class="custom-header-container">
+        <div class="custom-header text-center mb-4">
+            <h6 class="m-0 juegos-header">DETALLES</h6>
+        </div>
+    </div>
+
+    <div class="container my-custom-container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 justify-content-center">
+            @foreach (var juego in Model)
+            {
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@juego.Nombre</h5>
+
+                            <form class="form-eliminar">
+                                <input type="hidden" name="IdJuego" value="@juego.IdJuego" />
+                                <button type="button" class="btn btn-danger btn-block btn-eliminar">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
+                            </form>
+                            <a href="~/Juegos" class="btn btn-info btn-block mt-2">
+                                <i class="fas fa-eye"></i> Ver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Botones Guardar y Cancelar -->
+    <div class="d-flex justify-content-center mt-4">
+
+        <a href="@Url.Action("Index", "TicketsJuegos")" class="btn btn-danger mx-2" id="btn-cancelar">
+            <i class="fas fa-times"></i> Cancelar
+        </a>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Delegación de eventos para botones de eliminar
+                $('.container').on('click', '.btn-eliminar', function () {
+                    var form = $(this).closest('.form-eliminar');
+                    if (confirm('¿Estás seguro de que deseas eliminar este juego?')) {
+                        $.ajax({
+                            url: '@Url.Action("ConfirmarBorrar", "TicketsJuegos")',
+                            type: 'POST',
+                            data: form.serialize(),
+                            success: function (result) {
+                                $('.container').load(location.href + ' .container > *');
+                            },
+                            error: function (xhr) {
+                                alert('Error al intentar eliminar el juego.');
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    }
+
+</body>
+
+</html>
